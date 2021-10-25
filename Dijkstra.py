@@ -16,12 +16,13 @@ def Dijkstra(edgelist, start_node):
     heapq.heappush(heap, (0, start_node))
     while heap:
         d, node = heapq.heappop(heap)
-        visited.add(node)
+        if node is not visited:
+            visited.add(node)
 
-        # relaxation on children of node
-        for child, weight in graph[node]:
-            if child not in visited:
-                distance[child] = min(d + weight, distance[child])
-                heapq.heappush(heap, (distance[child], child))
+            # relaxation on children of node
+            for child, weight in graph[node]:
+                if child not in visited:
+                    distance[child] = min(d + weight, distance[child])
+                    heapq.heappush(heap, (distance[child], child))
             
     return distance
